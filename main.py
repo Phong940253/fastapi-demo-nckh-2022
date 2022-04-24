@@ -69,14 +69,21 @@ async def get_list_post_page(page_id: str):
 
 @app.get("/group/{group_id}")
 async def get_list_post_group(group_id: str):
+    payload['fields'] = 'feed{comments{comments,message},message}'
     response = requests.get(
         BASEURL +
         '/' +
         VERSION +
         '/' +
         group_id,
-        params=payload)
-    return response.json()
+        params=payload).json()
+
+    res = response['feed']['data']
+    response = response['feed']
+    while 'paging' in response and 'next' in response['paging']:
+        response = requests.get(response['paging']['next']).json()
+        res = res + response['data']
+    return res
 
 
 @app.get("/post/{post}")
