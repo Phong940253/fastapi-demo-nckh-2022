@@ -35,9 +35,9 @@ async def get_list_pages():
 
 
 @app.get("/groups")
-async def get_list_groups():
+def get_list_groups():
     url = BASEURL + "/" + VERSION + "/me"
-    payload['fields'] = "groups{permissions,name}"
+    payload['fields'] = "groups{administrator,name}"
     response = requests.get(url, params=payload).json()
     # print(response)
     res = response['groups']['data']
@@ -49,8 +49,10 @@ async def get_list_groups():
 
 
 @app.get("/groups/admin")
-async def get_list_groups_admin():
-    pass
+def get_list_groups_admin():
+    list_group = get_list_groups()
+    list_group = [group for group in list_group if group['administrator']]
+    return list_group
 
 
 @app.get("/page/{page_id}")
