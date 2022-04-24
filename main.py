@@ -1,9 +1,9 @@
+import os
 from typing import Optional
 import requests
 from fastapi import FastAPI
 from dotenv import load_dotenv
-load_dotenv() 
-import os
+load_dotenv()
 TOKEN = os.environ.get("TOKEN")
 
 app = FastAPI()
@@ -21,9 +21,11 @@ payload = {
     'fields': 'feed{comments{comments,message},message}'
 }
 
+
 @app.get("/")
 async def read_root():
     return {"Hello": "World"}
+
 
 @app.get("/pages")
 async def get_list_pages():
@@ -31,11 +33,13 @@ async def get_list_pages():
     response = requests.get(url, params=payload)
     return response.json()
 
+
 @app.get("/groups")
 async def get_list_groups():
     url = BASEURL + "/" + VERSION + "/me"
-    payload['fields'] = "groups"
+    payload['fields'] = "groups{permissions,name}"
     response = requests.get(url, params=payload).json()
+    # print(response)
     res = response['groups']['data']
     response = response['groups']
     while 'paging' in response and 'next' in response['paging']:
@@ -43,18 +47,44 @@ async def get_list_groups():
         res = res + response['data']
     return res
 
+
+@app.get("/groups/admin")
+async def get_list_groups_admin():
+    pass
+
+
 @app.get("/page/{page_id}")
 async def get_list_post_page(page_id: str):
-    response = requests.get(BASEURL + '/' + VERSION + '/' + page_id, params=payload)
+    response = requests.get(
+        BASEURL +
+        '/' +
+        VERSION +
+        '/' +
+        page_id,
+        params=payload)
     return response.json()
+
 
 @app.get("/group/{group_id}")
 async def get_list_post_group(group_id: str):
-    response = requests.get(BASEURL + '/' + VERSION + '/' + group_id, params=payload)
+    response = requests.get(
+        BASEURL +
+        '/' +
+        VERSION +
+        '/' +
+        group_id,
+        params=payload)
     return response.json()
+
 
 @app.get("/post/{post}")
 async def get_post_group(post: str):
     payload['fields'] = 'feed{comments{comments,message},message}'
-    response = requests.get(BASEURL + "/" + VERSION + "/" + post, params=payload)
+    response = requests.get(
+        BASEURL +
+        "/" +
+        VERSION +
+        "/" +
+        post,
+        params=payload)
     return response.json()
