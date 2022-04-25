@@ -3,9 +3,8 @@ from typing import Optional, Dict
 import requests
 from fastapi import FastAPI
 from dotenv import load_dotenv
-import tensorflow
 
-from support import get_model, padding_data
+from support import get_model, padding_data, get_label
 from typing import List
 load_dotenv()
 TOKEN = os.environ.get("TOKEN")
@@ -44,11 +43,14 @@ def get_list_groups():
     payload['fields'] = "groups{administrator,name}"
     response = requests.get(url, params=payload).json()
     # print(response)
-    res = response['groups']['data']
-    response = response['groups']
-    while 'paging' in response and 'next' in response['paging']:
-        response = requests.get(response['paging']['next']).json()
-        res = res + response['data']
+    if 'groups' in response and 'data' in response['groups']:
+        res = response['groups']['data']
+        response = response['groups']
+        while 'paging' in response and 'next' in response['paging']:
+            response = requests.get(response['paging']['next']).json()
+            res = res + response['data']
+    else:
+        res = []
     return res
 
 
@@ -73,7 +75,7 @@ async def get_list_post_page(page_id: str):
 
 @app.get("/group/{group_id}")
 def get_list_post_group(group_id: str):
-    payload['fields'] = 'feed{comments{comments,message},message}'
+    payload['fields'] = 'feed{comments{message,from,created_time,comments{message,from,created_time}},message,from,created_time}'
     response = requests.get(
         BASEURL +
         '/' +
@@ -87,16 +89,34 @@ def get_list_post_group(group_id: str):
     while 'paging' in response and 'next' in response['paging']:
         response = requests.get(response['paging']['next']).json()
         res = res + response['data']
+    for post in res:
+        if "message" in post:
+            poster = post["message"]
+            if "comments" in post:
+                for comment in post["comments"]["data"]:
+                    if "message" in comment:
+                        comment_label = get_label(
+                            poster, comment["message"], model)
+                        print(comment_label)
+                        comment["label"] = round(comment_label[0][0])
+                    if "comments" in comment:
+                        for sub_comment in comment["comments"]["data"]:
+                            if "message" in sub_comment:
+                                comment_label = get_label(
+                                    poster, sub_comment["message"], model)
+                                print(comment_label)
+                                sub_comment["label"] = round(
+                                    comment_label[0][0])
+    print(res)
     return res
 
 
-@app.post("/analysis")
-def get_analysis(array_post: List[str], array_comment: List[str]):
-    array_post, array_comment = padding_data(
-        {"Poster": array_post, "Comment": array_comment})
-    print(len(array_post))
-    print(len(array_comment))
-    return model.predict({"Poster": array_post, "Comments": array_comment})
+# @app.post("/analysis")
+# def get_analysis(array_post: List[str], array_comment: List[str]):
+
+#     print(len(array_post))
+#     print(len(array_comment))
+#     return model.predict({"Poster": array_post, "Comments": array_comment})
 
 
 @app.get("/post/{post}")

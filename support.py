@@ -66,7 +66,6 @@ def get_model():
 
 
 def padding_data(data):
-    print(len(data))
     encoded_posters = [one_hot(d, 50000) for d in data['Poster']]
     # encoded_pre_comment = [one_hot(p,50000) for p in data['Pre-Comment'].values]
     encoded_comments = [one_hot(c, 50000) for c in data['Comment']]
@@ -76,3 +75,9 @@ def padding_data(data):
     padded_comments = pad_sequences(
         encoded_comments, maxlen=607, padding='post')
     return padded_posters, padded_comments
+
+
+def get_label(comment, poster, model):
+    array_post, array_comment = padding_data(
+        {"Poster": [comment], "Comment": [poster]})
+    return model.predict({"Poster": array_post, "Comments": array_comment})
