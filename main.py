@@ -1,8 +1,12 @@
 import os
-from typing import Optional
+from typing import Optional, Dict
 import requests
 from fastapi import FastAPI
 from dotenv import load_dotenv
+import tensorflow
+
+from support import get_model, padding_data
+from typing import List
 load_dotenv()
 TOKEN = os.environ.get("TOKEN")
 
@@ -68,7 +72,7 @@ async def get_list_post_page(page_id: str):
 
 
 @app.get("/group/{group_id}")
-async def get_list_post_group(group_id: str):
+def get_list_post_group(group_id: str):
     payload['fields'] = 'feed{comments{comments,message},message}'
     response = requests.get(
         BASEURL +
@@ -86,6 +90,15 @@ async def get_list_post_group(group_id: str):
     return res
 
 
+@app.post("/analysis")
+def get_analysis(array_post: List[str], array_comment: List[str]):
+    array_post, array_comment = padding_data(
+        {"Poster": array_post, "Comment": array_comment})
+    print(len(array_post))
+    print(len(array_comment))
+    return model.predict({"Poster": array_post, "Comments": array_comment})
+
+
 @app.get("/post/{post}")
 async def get_post_group(post: str):
     payload['fields'] = 'feed{comments{comments,message},message}'
@@ -97,3 +110,6 @@ async def get_post_group(post: str):
         post,
         params=payload)
     return response.json()
+
+model = get_model()
+model.load_weights("model/model.hdf5")

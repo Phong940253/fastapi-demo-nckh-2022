@@ -1,0 +1,365 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Read Root",
+                "operationId": "read_root__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pages": {
+            "get": {
+                "summary": "Get List Pages",
+                "operationId": "get_list_pages_pages_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups": {
+            "get": {
+                "summary": "Get List Groups",
+                "operationId": "get_list_groups_groups_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/groups/admin": {
+            "get": {
+                "summary": "Get List Groups Admin",
+                "operationId": "get_list_groups_admin_groups_admin_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        },
+                        "data": [
+                            {
+                                "name": "⊰⊹K45•CNTT•B⊹⊱",
+                                "id": "1658759070922266",
+                                "administrator": true
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "/page/{page_id}": {
+            "get": {
+                "summary": "Get List Post Page",
+                "operationId": "get_list_post_page_page__page_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Page Id",
+                            "type": "string"
+                        },
+                        "name": "page_id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/group/{group_id}": {
+            "get": {
+                "summary": "Get List Post Group",
+                "operationId": "get_list_post_group_group__group_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Group Id",
+                            "type": "string"
+                        },
+                        "name": "group_id",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        },
+                        "data": [
+                            {
+                                "comments": {
+                                    "data": [
+                                        {
+                                            "message": "form ko điền đc v ông :v",
+                                            "id": "2497815240349974"
+                                        },
+                                        {
+                                            "comments": {
+                                                "data": [
+                                                    {
+                                                        "created_time": "2022-03-15T16:23:10+0000",
+                                                        "from": {
+                                                            "name": "Văn Phong",
+                                                            "id": "444359367445673"
+                                                        },
+                                                        "message": "Danh Trung App rút gọn bị lỗi :)) không hiểu nổi :)))",
+                                                        "id": "2497823773682454"
+                                                    }
+                                                ],
+                                                "paging": {
+                                                    "cursors": {
+                                                        "before": "QVFIUmdJOUF3Nm9QdWswa0R5alV5T25YQTFpNUpMTWhmREgtc1NxNWNOVW5zTGNtOHBfaEVVS1Q2VllYb0tnTXY0ZA3pSdWt5QjJsRmRSbmxzeG1LSkJUSDZAn",
+                                                        "after": "QVFIUmdJOUF3Nm9QdWswa0R5alV5T25YQTFpNUpMTWhmREgtc1NxNWNOVW5zTGNtOHBfaEVVS1Q2VllYb0tnTXY0ZA3pSdWt5QjJsRmRSbmxzeG1LSkJUSDZAn"
+                                                    }
+                                                }
+                                            },
+                                            "message": "nhầm form kỳ trước rồi Văn Phong ơiiiii",
+                                            "id": "2497817140349784"
+                                        },
+                                        {
+                                            "comments": {
+                                                "data": [
+                                                    {
+                                                        "created_time": "2022-03-15T16:28:32+0000",
+                                                        "from": {
+                                                            "name": "Văn Phong",
+                                                            "id": "444359367445673"
+                                                        },
+                                                        "message": "Tường Huy À ông điền cái mới nha :))) form hiện tại có 3 người điền rồi ông",
+                                                        "id": "2497826863682145"
+                                                    },
+                                                    {
+                                                        "created_time": "2022-03-15T16:29:09+0000",
+                                                        "message": "Văn Phong Okay ông :v",
+                                                        "id": "2497827137015451"
+                                                    }
+                                                ],
+                                                "paging": {
+                                                    "cursors": {
+                                                        "before": "QVFIUlFSRnFJUnJkVmYwOHBwMkpuUnR6T2pyNUJ6NUZAzMkpjT2VYeWtqajBGQ21JUHJUYjYxS3RWa3lpNVlBUGc3SFQ3c013QlFhZAHVkWEFiZAm9FRFlodlNB",
+                                                        "after": "QVFIUmxvTE80aVdQZAm5VRnhYUlJxaXU5RVVQbHdwVVRySURMSU0xSTNzMG9Xb0toeHhvbm1sTGM2Q0JqZAjVOTjhpczgtQ3pyVERVT05iWmZAUdnFCQ1kwcE53"
+                                                    }
+                                                }
+                                            },
+                                            "message": "Nãy tui điền form trước đó rồi giờ có cần điền lại form mới không Văn Phong ơi :v",
+                                            "id": "2497825693682262"
+                                        }
+                                    ],
+                                    "paging": {
+                                        "cursors": {
+                                            "before": "WTI5dGJXVnVkRjlqZAFhKemIzSTZANalE1TnpneE5USTBNRE0wT1RrM05Eb3hOalEzTXpZAd056RXoZD",
+                                            "after": "WTI5dGJXVnVkRjlqZAFhKemIzSTZANalE1TnpneU5UWTVNelk0TWpJMk1qb3hOalEzTXpZAeE5Ua3oZD"
+                                        }
+                                    }
+                                },
+                                "message": "‼️𝕿𝖍𝖔̂𝖓𝖌 𝕭𝖆́𝖔‼️\n❆ Tự đánh giá Điểm Rèn luyện lớp K45CNTTB (HK I, năm học 2021 - 2022)\n* Hạn chót: 21h ngày 17/03/2022 (Thứ năm).\n* Lưu ý:\n* Nếu tự đánh giá các phần cần minh chứng, yêu cầu tải minh chứng cần thiết. Nếu không có, phần đó sẽ không tính điểm.\n* Sinh viên không thực hiện tự đánh giá điểm rèn luyện mặc định là 0 điểm.\n* Minh chứng khảo sát mọi người có thể vào trang online.hcmue.edu.vn để chụp\n\n❆ Link form tự đánh giá Điểm Rèn luyện:\n\nhttps://docs.google.com/forms/d/e/1FAIpQLSfltWJJhmvy7a3pFVfpK3rfhFJgfjJkPn7V0DJ5qSLxXDchOA/viewform\n❆ Điểm rèn luyện quy đổi tại:\n[https://docs.google.com/spreadsheets/d/1iwg802g_nNGdW5fgZGvPZriK0dCsjVb4/edit?usp=sharing&ouid=105604324609780923198&rtpof=true&sd=true](https://l.facebook.com/l.php?u=https%3A%2F%2Fj2c.cc%2Fdiem-hoat-dong-ii-20-21%3Ffbclid%3DIwAR1v4zmqUp5Ku2fEjYzKfbpKKcSpZFKAjaxf-15D4caNFvlDsYPSJhnfwCQ&h=AT39RtwfluYx7_xkuFDLUnQaQZMKyW3zU4Hb1SR_AfkCJ4XOL8BQ44Lx_Ucb8B112gM0hrKJ6gIFQMh1EwEK7Zdx9xiRVvvc1jrtkIuPjn1hDUOTfr02mBbgA3IcwquWrXuILTSX8P04wsXqdFRb&__tn__=-UK-R&c%5B0%5D=AT2SnZoLi1TofC8npNS3HsPy0ps3c8bU0YrBPQ3u6TOy4nIyCQPPipOpV46o-BiWtsyAuN-NllFKCby_9Xvx6W82wrvXW7_JIus5nucZ8TJs1rCaB9hog87NCIxQFp3rZlpTBatVG5-lrHHhHsxyjar7HocCCI3RxMw)",
+                                "id": "1658759070922266_2497793783685453"
+                            }
+                        ]
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/analysis": {
+            "post": {
+                "summary": "Get Analysis",
+                "operationId": "get_analysis_analysis_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_get_analysis_analysis_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/post/{post}": {
+            "get": {
+                "summary": "Get Post Group",
+                "operationId": "get_post_group_post__post__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Post",
+                            "type": "string"
+                        },
+                        "name": "post",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Body_get_analysis_analysis_post": {
+                "title": "Body_get_analysis_analysis_post",
+                "required": [
+                    "array_post",
+                    "array_comment"
+                ],
+                "type": "object",
+                "properties": {
+                    "array_post": {
+                        "title": "Array Post",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "array_comment": {
+                        "title": "Array Comment",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "HTTPValidationError": {
+                "title": "HTTPValidationError",
+                "type": "object",
+                "properties": {
+                    "detail": {
+                        "title": "Detail",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        }
+                    }
+                }
+            },
+            "ValidationError": {
+                "title": "ValidationError",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "type": "object",
+                "properties": {
+                    "loc": {
+                        "title": "Location",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string"
+                    },
+                    "type": {
+                        "title": "Error Type",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
